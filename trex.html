@@ -1,0 +1,33 @@
+<!doctype html>
+<html lang="cs">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>T-Rex skákačka</title>
+  <link rel="stylesheet" href="trex.css" />
+</head>
+<body>
+  <main class="wrap">
+    <header class="bar">
+      <a href="./" class="back">← Advent</a>
+      <h1>🦖 T-Rex skákačka</h1>
+      <div></div>
+    </header>
+
+    <section class="gamecard">
+      <canvas id="game" width="720" height="200" aria-label="T-Rex hra"></canvas>
+      <div class="hud">
+        <span id="score">00000</span>
+        <span id="hi">HI 00000</span>
+      </div>
+      <div id="hint" class="hint">Mezerník / ↑ skok · ↓ podskočení · Tap na mobilu · R restart</div>
+    </section>
+
+    <footer class="foot">
+      Postaveno bez obrázků, jen <code>&lt;canvas&gt;</code>. Have fun!
+    </footer>
+  </main>
+
+  <script src="trex.js" type="module"></script>
+</body>
+</html>
