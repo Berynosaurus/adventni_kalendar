@@ -1,7 +1,7 @@
 // Konfigurace
 const TZ = "Europe/Prague";
 // ⚠️ ZMĚŇ: první den (00:00 v CZ). Např. "2025-12-01T00:00:00"
-const START_ISO = "2025-11-09T22:04:00";
+const START_ISO = "2025-11-09T00:00:00";
 
 dayjs.extend(dayjs_plugin_utc);
 dayjs.extend(dayjs_plugin_timezone);
