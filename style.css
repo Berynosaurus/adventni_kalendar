@@ -1,45 +1,133 @@
+/* ===== Vánoční, hravé, barevné ===== */
 :root{
-  --bg: #0f0f12;
-  --fg: #eaeaf0;
-  --muted: #a0a3ad;
-  --card: #16161b;
-  --ring: rgba(255,255,255,.08);
+  /* paleta */
+  --pine: #0d1f1a;      /* borovice (tmavé pozadí) */
+  --cran: #a5162b;      /* brusinka (akcent) */
+  --holly: #1f6b42;     /* cesmína (akcent) */
+  --gold: #f2c94c;      /* zlatá (jiskra) */
+  --cream:#fff7e6;      /* krémová (text) */
+
+  --fg: var(--cream);
+  --muted: rgba(255, 247, 230, .72);
+  --card: rgba(18, 22, 21, .55); /* skleněná kartička */
+  --ring: rgba(242, 201, 76, .25);
 }
 
+/* reset */
 *{box-sizing:border-box}
 html,body{height:100%}
 body{
   margin:0;
-  background:
-    radial-gradient(1200px 600px at 20% -10%, rgba(255,255,255,.05), transparent),
-    radial-gradient(900px 500px at 120% 110%, rgba(255,255,255,.04), transparent),
-    var(--bg);
   color:var(--fg);
   font:16px/1.6 system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif;
-  display:grid; place-items:center; padding:24px;
+  display:grid; place-items:center; padding:28px;
+
+  /* vánoční pozadí – borovice + brusinková + zlaté světýlka */
+  background:
+    radial-gradient(1200px 600px at 20% -10%, rgba(242,201,76,.08), transparent),
+    radial-gradient(800px 500px at 110% 120%, rgba(165,22,43,.12), transparent),
+    radial-gradient(900px 700px at -10% 120%, rgba(31,107,66,.14), transparent),
+    linear-gradient(160deg, #0b1714 0%, var(--pine) 38%, #111b18 100%);
+  overflow:hidden;
 }
+
+/* sněžení – čistě CSS, šetřené animace */
+@media (prefers-reduced-motion: no-preference){
+  body::before,
+  body::after{
+    content:"";
+    position:fixed; inset:-10% -10% -10% -10%;
+    pointer-events:none;
+    background-repeat:repeat;
+    animation:snowslow 18s linear infinite;
+    opacity:.6;
+  }
+  /* drobnější vločky */
+  body::before{
+    background-image:
+      radial-gradient(2px 2px at 20% 10%, rgba(255,255,255,.35) 50%, transparent 52%),
+      radial-gradient(2px 2px at 80% 30%, rgba(255,255,255,.42) 50%, transparent 52%),
+      radial-gradient(2px 2px at 50% 70%, rgba(255,255,255,.30) 50%, transparent 52%),
+      radial-gradient(2px 2px at 10% 90%, rgba(255,255,255,.38) 50%, transparent 52%);
+    background-size: 400px 400px, 500px 500px, 450px 450px, 520px 520px;
+  }
+  /* větší vločky + parallax */
+  body::after{
+    background-image:
+      radial-gradient(3px 3px at 30% 0%, rgba(255,255,255,.55) 50%, transparent 52%),
+      radial-gradient(3px 3px at 70% 50%, rgba(255,255,255,.5) 50%, transparent 52%),
+      radial-gradient(3px 3px at 40% 90%, rgba(255,255,255,.45) 50%, transparent 52%);
+    background-size: 520px 520px, 580px 580px, 600px 600px;
+    animation:snowslow 26s linear infinite reverse;
+  }
+  @keyframes snowslow{
+    from{ transform:translateY(-3%) }
+    to  { transform:translateY(3%) }
+  }
+}
+
+/* karta */
 .card{
-  width:min(680px, 96vw);
+  width:min(760px, 96vw);
   background:var(--card);
-  border:1px solid var(--ring);
-  border-radius:16px;
-  padding:28px 24px 22px;
-  box-shadow:0 10px 30px rgba(0,0,0,.25);
-  animation:pop .45s ease;
+  border:1px solid rgba(255,255,255,.06);
+  border-radius:20px;
+  padding:30px 26px 22px;
+  box-shadow:
+    0 10px 30px rgba(0,0,0,.35),
+    0 0 0 1px rgba(255,255,255,.05) inset;
+  backdrop-filter: blur(10px) saturate(120%);
+  animation:pop .5s ease;
 }
-@keyframes pop{from{transform:translateY(6px);opacity:0}to{transform:none;opacity:1}}
-h1{margin:0 0 4px; font-size:clamp(22px, 3vw, 28px)}
-.sub{margin:0 0 18px; color:var(--muted)}
+@keyframes pop{from{transform:translateY(8px);opacity:0}to{transform:none;opacity:1}}
+
+/* hlavní titulek – zlatý přechod */
+h1{
+  margin:0 0 6px;
+  font-size:clamp(24px, 4vw, 34px);
+  background:linear-gradient(90deg, var(--gold), #fff2b3 60%, var(--gold));
+  -webkit-background-clip:text;
+  background-clip:text;
+  color:transparent;
+  text-shadow: 0 0 20px rgba(242,201,76,.08);
+}
+
+/* štítek „Den X z Y“ */
+.sub{
+  margin:0 0 16px;
+  color:var(--muted);
+  font-weight:600;
+  letter-spacing:.25px;
+}
+
+/* text zprávy – větší, čitelný, s jemnou zlatou linkou vlevo */
 .message{
+  position:relative;
   white-space:pre-wrap;
   font-size:clamp(18px, 2.6vw, 22px);
   line-height:1.55;
-  padding:16px 0 6px;
+  padding:14px 0 8px 16px;
 }
+.message::before{
+  content:"";
+  position:absolute; left:0; top:10px; bottom:10px; width:3px;
+  background:linear-gradient(180deg, rgba(242,201,76,.9), rgba(242,201,76,.2));
+  border-radius:4px;
+  box-shadow:0 0 10px rgba(242,201,76,.3);
+}
+
+/* patička – decentní linka s červeno-zeleným přechodem */
 .footer{
   margin-top:18px;
   color:var(--muted);
   font-size:14px;
-  border-top:1px solid var(--ring);
+  border-top:1px solid rgba(242,201,76,.25);
   padding-top:12px;
+}
+.footer::after{
+  content:"";
+  display:block;
+  height:2px; margin-top:10px; border-radius:2px;
+  background:linear-gradient(90deg, var(--holly), var(--cran));
+  opacity:.35;
 }
